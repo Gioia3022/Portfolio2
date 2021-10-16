@@ -1,9 +1,12 @@
+//import jdk.internal.net.http.common.Pair;
+
 import java.io.*;
 import java.util.*;
 
 public class Graph
 {
     Map<String, LinkedList<String>> adj;
+    //LinkedList is a dynamic array with better benefits
 
     public Graph() {
         adj = new HashMap<String, LinkedList<String>>();
@@ -23,7 +26,6 @@ public class Graph
     }
 
     public static void main(String[] args) throws IOException {
-        // TODO Auto-generated method stub
         File file = new File("data.txt");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
@@ -39,5 +41,15 @@ public class Graph
             g.addNeighbor( tokens[0], tokens[1]);
         }
         br.close();
+
     }
+
+
+/*
+    public void PrimMST(){
+        int[] D = new int[this.edges.size()];
+        int[] P = new int[this.edges.size()];
+        Heap<Pair> Q = new Heap<>();
+
+    }*/
 }
