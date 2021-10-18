@@ -10,6 +10,8 @@ class Graph {
     Vector<Node> m_node;
     Vector<Vertex> m_vertex;
 
+    //help
+
     public Graph(String doc) {
         // create a Path from the String
         Path filePath = Paths.get(doc);
@@ -24,6 +26,7 @@ class Graph {
                 // and do what you want with the results, e.g. create an edge of the graph
                 System.out.println(lineValues[0] + " --" + lineValues[2] + "km--> " + lineValues[1]);
             });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
