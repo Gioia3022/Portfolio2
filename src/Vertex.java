@@ -4,7 +4,7 @@ public class Vertex {
 
     ArrayList<Node> edges = new ArrayList<>() ;
     int distance;
-    Vertex prev = null;
+    //Vertex prev = null;
 
     public Vertex(Node a, Node b, int w){
         this.edges.add(0, a);

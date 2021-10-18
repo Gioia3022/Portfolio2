@@ -33,7 +33,7 @@ Køge Ringsted 28
 Køge Roskilde 25
 Køge Vordingborg 60
 Maribo Nakskov 27
-Maribo Nykøbing F 26
+Maribo NykøbingF 26
 Næstved Roskilde 57
 Næstved Ringsted 26
 Næstved Slagelse 37
