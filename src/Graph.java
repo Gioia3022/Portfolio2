@@ -1,14 +1,47 @@
-//import jdk.internal.net.http.common.Pair;
+import java.io.*;
 
+class Graph
+{
+    public Graph(File doc){
+        try {
+            BufferedReader br= new BufferedReader(new FileReader(doc));
+            String s;
+            while ((s= br.readLine())!= null)
+                System.out.println(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+
+//import jdk.internal.net.http.common.Pair;
+/*
 import java.io.*;
 import java.util.*;
 
 public class Graph
 {
+    Vector <Node> m_node;
+    Vector <Vertex> m_vertex;
+    int m_o, m_size;
+
+    public Graph(String nameFile)
+    {
+        FileReader fr = null;
+        try {
+            fr = new FileReader(nameFile);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     Map<String, LinkedList<String>> adj;
     //LinkedList is a dynamic array with better benefits
 
-    public Graph() {
+    public Graph(String data) {
         adj = new HashMap<String, LinkedList<String>>();
     }
 
@@ -25,9 +58,14 @@ public class Graph
         return adj.get(v);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         File file = new File("data.txt");
-        FileReader fr = new FileReader(file);
+        FileReader fr = null;
+        try {
+            fr = new FileReader(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         BufferedReader br = new BufferedReader(fr);
         String line;
         String [] tokens;
@@ -43,7 +81,7 @@ public class Graph
         br.close();
 
     }
-
+*/
 
 /*
     public void PrimMST(){
@@ -52,4 +90,3 @@ public class Graph
         Heap<Pair> Q = new Heap<>();
 
     }*/
-}
