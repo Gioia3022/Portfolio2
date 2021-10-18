@@ -1,18 +1,66 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Vector;
 
-class Graph
-{
-    public Graph(File doc){
+
+class Graph {
+    Vector<Node> m_node;
+    Vector<Vertex> m_vertex;
+
+    public Graph(String doc) {
+        // create a Path from the String
+        Path filePath = Paths.get(doc);
+        // if everything is fine with the file (checks omitted for brevity), read its lines
+        List<String> lines;
         try {
-            BufferedReader br= new BufferedReader(new FileReader(doc));
-            String s;
-            while ((s= br.readLine())!= null)
-                System.out.println(s);
+            lines = Files.readAllLines(filePath);
+            // then handle each line:
+            lines.forEach(line -> {
+                // split each line by an arbitrary number of whitespaces
+                String[] lineValues = line.split("\\s+");
+                // and do what you want with the results, e.g. create an edge of the graph
+                System.out.println(lineValues[0] + " --" + lineValues[2] + "km--> " + lineValues[1]);
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
+
+/*
+
+        try {
+            BufferedReader br= new BufferedReader(new FileReader(doc));
+            Scanner in = new Scanner(doc);
+            String s, line, unique, del=" ";
+            while (in.hasNextLine()) {
+                line= in.nextLine();
+                String[] name= line.split(" ");
+                for(int i=0; i<name.length-1; i++)
+                {
+                    int j=i+2;
+                    while (name[i]!=name[j])
+                    {
+                        addNode(name[i++]);
+                        System.out.println(name[i]);
+                    }
+
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    void addNode(String city){
+        Node c = new Node(city);
+        this.m_node.add(c);
+    }*/
+
 }
 
 
