@@ -4,6 +4,7 @@ public class Vertex {
 
     ArrayList<Node> edges = new ArrayList<>() ;
     int distance;
+    boolean isVisited = false;
     //Vertex prev = null;
 
     public Vertex(Node a, Node b, int w){
@@ -15,5 +16,8 @@ public class Vertex {
     Node getStart(){return this.edges.get(0); }
     Node getEnd(){return this.edges.get(1); }
     Integer getWeight(){return this.distance; }
+    Boolean getIsVisited(){return this.isVisited; }
+
+    void setVisited(boolean is){this.isVisited = is; }
 
 }

@@ -9,6 +9,6 @@ public class Main {
     public static void main(String[] args)  {
         Graph g;
         g = new Graph("src/data.txt");
-        g.displayTxt();
+        //g.displayTxt();
     }
 }
