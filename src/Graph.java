@@ -24,8 +24,11 @@ class Graph {
                 // split each line by an arbitrary number of whitespaces
                 String[] lineValues = line.split("\\s+");
 
-
-                addVertex(lineValues[0], lineValues[1], lineValues[2]);
+                for(int i = 0; i < this.m_node.size(); i++) {
+                    for (int j = 0; j < this.m_node.size(); j++) {
+                        addVertex(lineValues[0], i, lineValues[1], j, lineValues[2]);
+                    }
+                }
 
                 boolean isAlreadyHere = false;
                 for (int i = 0; i < this.m_node.size(); i++) {
@@ -33,8 +36,10 @@ class Graph {
                         isAlreadyHere = true;
                     }
                 }
-                if (isAlreadyHere == false) {
-                    addNode(lineValues[0]);
+                for (int i = 0; i < this.m_node.size(); i++) {
+                    if (isAlreadyHere == false) {
+                        addNode(lineValues[0], i);
+                    }
                 }
 
                 boolean isAlreadyHere1 = false;
@@ -43,9 +48,10 @@ class Graph {
                         isAlreadyHere1 = true;
                     }
                 }
-                if (isAlreadyHere1 == false) {
-
-                    addNode(lineValues[1]);
+                for (int i = 0; i < this.m_node.size(); i++) {
+                    if (isAlreadyHere == false) {
+                        addNode(lineValues[1], i);
+                    }
                 }
 
 
@@ -56,14 +62,14 @@ class Graph {
 
     }
 
-    void addNode(String city) {
-        Node c = new Node(city);
+    void addNode(String city, int i) {
+        Node c = new Node(city, i);
         this.m_node.add(c);
     }
 
-    void addVertex(String city1, String city2, String distance) {
-        Node c = new Node(city1);
-        Node c2 = new Node(city2);
+    void addVertex(String city1, int i1, String city2, int i2, String distance) {
+        Node c = new Node(city1, i1);
+        Node c2 = new Node(city2, i2);
         int dis = Integer.parseInt(distance);
         Vertex v = new Vertex(c, c2, dis);
         this.m_vertex.add(v);
@@ -78,7 +84,28 @@ class Graph {
             System.out.println(this.m_vertex.get(i).getStart().getName() + "-->" + this.m_vertex.get(i).getWeight() + "-->" + this.m_vertex.get(i).getEnd().getName());
     }
 
-    public void MSTPrims(){
+    //We convert our list of weight to use in Prims
+    int[][] convertListToArrayWeight(int[][] matrixweightgraph){
+
+        //We put every vertex's weight in our int array
+        for(int i = 0; i < this.m_vertex.size(); i++){
+            matrixweightgraph[this.m_vertex.get(i).getStart().getNumber()][this.m_vertex.get(i).getEnd().getNumber()] = this.m_vertex.get(i).getWeight();
+        }
+        return matrixweightgraph;
+    }
+
+    //We create a 2D board of our vertices
+    int[][] convertListToArrayVertex(int[][] matrixvertexgraph){
+
+        //We put in a 2D board whether the vertex exists or not
+        for(int i = 0; i < this.m_vertex.size(); i++){
+
+            matrixvertexgraph[this.m_vertex.get(i).getStart().getNumber()][this.m_vertex.get(i).getEnd().getNumber()] = 1;
+        }
+        return matrixvertexgraph;
+    }
+
+    public void MSTPrims(int[][] matrixvertexgraph, int[][] matrixweightgraph){
 
         int[] distance = new int[this.m_node.size()];
         int[] predecessor = new int[this.m_node.size()];
@@ -101,25 +128,24 @@ class Graph {
         while (!Q.isEmpty()){
 
             Pair u = Q.extractMin(); //we put the smallest element in u
-            System.out.println(u.distance);
+            System.out.println(u.distance); //rien ne s'affiche
 
             for (int i = 0; i < this.m_node.size(); i++){ //for each node
-/*
-                if(matrixedgegraph[u.index][i] == 1 && matrixweightgraph[u.index][i] < distance[i]){
+
+                if(matrixvertexgraph[u.index][i] == 1 && matrixweightgraph[u.index][i] < distance[i]){
                     distance[i] = matrixweightgraph[u.index][i];
                     predecessor[i] = u.index;
                     int position=Q.getPosition(listOfPairs.get(i));
                     listOfPairs.get(i).distance = matrixweightgraph[u.index][i];
                     Q.decreasekey(position);
-                }*/
+                }
             }
             MST += distance[u.index];
 
-
-
         }
-        System.out.println("Minimum spaning tree distance");
+        System.out.println("Minimum spanning tree distance");
 
+        //nothing is displayed
         for (int i = 0; i < this.m_node.size(); i++) {
             System.out.println(i+ "parent "+ predecessor[i]+ "to  "+i+" weight "+ distance[i] );
         }
