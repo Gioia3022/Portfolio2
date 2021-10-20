@@ -107,8 +107,8 @@ class Graph {
 
     public void MSTPrims(int[][] matrixvertexgraph, int[][] matrixweightgraph){
 
-        int[] distance = new int[this.m_node.size()];
-        int[] predecessor = new int[this.m_node.size()];
+        int[] distance = new int[matrixvertexgraph.length];
+        int[] predecessor = new int[matrixvertexgraph.length];
 
         ArrayList<Pair> listOfPairs = new ArrayList<>(); //?
         Heap<Pair> Q = new Heap<>();
@@ -118,7 +118,7 @@ class Graph {
 
         if (this.m_node.size() > 0)
             distance[0] = 0;
-        for (int i = 0; i < this.m_node.size(); i++) {
+        for (int i = 0; i < matrixvertexgraph.length; i++) {
             listOfPairs.add(new Pair(distance[i], i));
             Q.insert(listOfPairs.get(i));
         }
@@ -127,10 +127,10 @@ class Graph {
 
         while (!Q.isEmpty()){
 
-            Pair u = Q.extractMin(); //we put the smallest element in u
-            System.out.println(u.distance); //rien ne s'affiche
+            Pair u = Q.extractMin(); //we put the smallest element in u <- doesn't work
+            //System.out.println(u.distance);
 
-            for (int i = 0; i < this.m_node.size(); i++){ //for each node
+            for (int i = 0; i < matrixvertexgraph.length; i++){ //for each node
 
                 if(matrixvertexgraph[u.index][i] == 1 && matrixweightgraph[u.index][i] < distance[i]){
                     distance[i] = matrixweightgraph[u.index][i];
@@ -145,9 +145,11 @@ class Graph {
         }
         System.out.println("Minimum spanning tree distance");
 
-        //nothing is displayed
-        for (int i = 0; i < this.m_node.size(); i++) {
-            System.out.println(i+ "parent "+ predecessor[i]+ "to  "+i+" weight "+ distance[i] );
+
+        for (int i = 0; i < matrixvertexgraph.length; i++) {
+            //predecessor and distance aren't filled properly
+            System.out.println(i + ": its parent is " + predecessor[i]+ ". The distance to the latter is  " + distance[i] );
+            //System.out.println(m_node.get(i).getName() + " -- " + distance[i] + " km --> " + predecessor[i].getName());
         }
     }
 
