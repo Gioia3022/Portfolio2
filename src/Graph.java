@@ -86,10 +86,13 @@ class Graph {
 
     //We convert our list of weight to use in Prims
     int[][] convertListToArrayWeight(int[][] matrixweightgraph){
-
+        System.out.println("we in " +this.m_vertex.size());
         //We put every vertex's weight in our int array
-        for(int i = 0; i < this.m_vertex.size(); i++){
+        for(int i = 0; i < this.m_vertex.size(); i++){ //we don't get in the for bc m_vertex is empty
+            System.out.println("we get in the for");
             matrixweightgraph[this.m_vertex.get(i).getStart().getNumber()][this.m_vertex.get(i).getEnd().getNumber()] = this.m_vertex.get(i).getWeight();
+            matrixweightgraph[this.m_vertex.get(i).getEnd().getNumber()][this.m_vertex.get(i).getStart().getNumber()] = this.m_vertex.get(i).getWeight();
+            System.out.println(this.m_vertex.get(i).getWeight());
         }
         return matrixweightgraph;
     }
@@ -101,6 +104,8 @@ class Graph {
         for(int i = 0; i < this.m_vertex.size(); i++){
 
             matrixvertexgraph[this.m_vertex.get(i).getStart().getNumber()][this.m_vertex.get(i).getEnd().getNumber()] = 1;
+            matrixvertexgraph[this.m_vertex.get(i).getEnd().getNumber()][this.m_vertex.get(i).getStart().getNumber()] = 1;
+
         }
         return matrixvertexgraph;
     }
@@ -116,8 +121,9 @@ class Graph {
         Arrays.fill(distance, Integer.MAX_VALUE); //all distances are infinite
         Arrays.fill(predecessor, -1); //no nodes has any predecessor
 
-        if (this.m_node.size() > 0)
+        if (matrixvertexgraph.length > 0)
             distance[0] = 0;
+            //our source doesn't have a predecessor
         for (int i = 0; i < matrixvertexgraph.length; i++) {
             listOfPairs.add(new Pair(distance[i], i));
             Q.insert(listOfPairs.get(i));
@@ -126,21 +132,18 @@ class Graph {
         int MST = 0;
 
         while (!Q.isEmpty()){
-
-            Pair u = Q.extractMin(); //we put the smallest element in u <- doesn't work
+            Pair u = Q.extractMin();
             //System.out.println(u.distance);
-
-            for (int i = 0; i < matrixvertexgraph.length; i++){ //for each node
-
-                if(matrixvertexgraph[u.index][i] == 1 && matrixweightgraph[u.index][i] < distance[i]){
-                    distance[i] = matrixweightgraph[u.index][i];
-                    predecessor[i] = u.index;
-                    int position=Q.getPosition(listOfPairs.get(i));
-                    listOfPairs.get(i).distance = matrixweightgraph[u.index][i];
+            for (int v=0; v < matrixvertexgraph.length; v++){
+                if(matrixvertexgraph[u.index][v]==1 && matrixweightgraph[u.index][v]<distance[v]){
+                    distance[v]=matrixweightgraph[u.index][v];
+                    predecessor[v]=u.index;
+                    int position=Q.getPosition(listOfPairs.get(v));
+                    listOfPairs.get(v).distance=matrixweightgraph[u.index][v];
                     Q.decreasekey(position);
                 }
             }
-            MST += distance[u.index];
+            MST+=distance[u.index];
 
         }
         System.out.println("Minimum spanning tree distance");
@@ -148,7 +151,7 @@ class Graph {
 
         for (int i = 0; i < matrixvertexgraph.length; i++) {
             //predecessor and distance aren't filled properly
-            System.out.println(i + ": its parent is " + predecessor[i]+ ". The distance to the latter is  " + distance[i] );
+            System.out.println("Road " + i+ ": goes from "+ predecessor[i]+ " to "+i+" and weight is: "+ distance[i] );
             //System.out.println(m_node.get(i).getName() + " -- " + distance[i] + " km --> " + predecessor[i].getName());
         }
     }
