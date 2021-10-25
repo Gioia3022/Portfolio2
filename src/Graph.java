@@ -114,7 +114,7 @@ class Graph {
         int dis = Integer.parseInt(distance);
         Vertex v = new Vertex(c, c2, dis);
         this.m_vertex.add(v);
-        //System.out.println(v);
+        //System.out.println(v); bite
 
     }
 
