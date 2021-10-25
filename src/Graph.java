@@ -11,6 +11,7 @@ import java.util.Objects;
 class Graph {
     ArrayList<Node> m_node = new ArrayList<>();
     ArrayList<Vertex> m_vertex = new ArrayList<>();
+    final int number_nodes = 16;
 
     public Graph(String doc) {
         // create a Path from the String
@@ -19,10 +20,70 @@ class Graph {
         List<String> lines;
         try {
             lines = Files.readAllLines(filePath);
+            int compteur = 0;
+
             // then handle each line:
-            lines.forEach(line -> {
+            for(int a = 0; a < lines.size(); a++){
+                String[] lineValues = lines.get(a).split("\\s+"); ///lineValues is filled fully
+
+                if(compteur == 0){ //we don't check because we know it isn't already registered
+                    addNode(lineValues[0]);
+                    addNode(lineValues[1]);
+                }
+
+                //We make sure that the city isn't already registered before adding it
+                for (int i = compteur; i < number_nodes; i++) {
+
+                        //we go through the list of registered cities and check if this one is already registered
+                        for(int j = 0; j < i; j++){
+                            if (!Objects.equals(this.m_node.get(j).getName(), lineValues[0])) {
+                                addNode(lineValues[0]);
+
+                            }if(!Objects.equals(this.m_node.get(j).getName(), lineValues[1])) {
+                                addNode(lineValues[1]);
+                            }
+                        }
+                }
+
+                addVertex(lineValues[0], lineValues[1], lineValues[2]);
+
+
+                /*for(int i = 0; i < this.m_node.size(); i++) {
+                    for (int j = 0; j < this.m_node.size(); j++) {
+                        addVertex(lineValues[0], i, lineValues[1], j, lineValues[2]);
+                    }
+                }*/
+
+
+                compteur += 1;
+            }
+
+            /*
+            // then handle each line:
+            lines.forEach(line -> { ///we get inside this loop
                 // split each line by an arbitrary number of whitespaces
-                String[] lineValues = line.split("\\s+");
+                String[] lineValues = line.split("\\s+"); ///lineValues is filled fully
+
+                if(compteur == 0){ //we don't check because we know it isn't already registered
+                    addNode(lineValues[0], 0);
+                    addNode(lineValues[1], 1);
+                }
+
+
+                //We make sure that the city isn't already registered before adding it
+                for (int i = 0; i < number_nodes; i++) {
+
+                    //we go through the list of registered cities and check if this one is already registered
+                    for(int j = 0; j < i; j++){
+                        if (!Objects.equals(this.m_node.get(j).getName(), lineValues[0])) {
+                            addNode(lineValues[0], i);
+
+                        }if(!Objects.equals(this.m_node.get(j).getName(), lineValues[1])) {
+                            addNode(lineValues[1], i);
+                        }
+                    }
+                }
+
 
                 for(int i = 0; i < this.m_node.size(); i++) {
                     for (int j = 0; j < this.m_node.size(); j++) {
@@ -30,58 +91,40 @@ class Graph {
                     }
                 }
 
-                boolean isAlreadyHere = false;
-                for (int i = 0; i < this.m_node.size(); i++) {
-                    if (Objects.equals(this.m_node.get(i).getName(), lineValues[0])) {
-                        isAlreadyHere = true;
-                    }
-                }
-                for (int i = 0; i < this.m_node.size(); i++) {
-                    if (isAlreadyHere == false) {
-                        addNode(lineValues[0], i);
-                    }
-                }
 
-                boolean isAlreadyHere1 = false;
-                for (int i = 0; i < this.m_node.size(); i++) {
-                    if (Objects.equals(this.m_node.get(i).getName(), lineValues[1])) {
-                        isAlreadyHere1 = true;
-                    }
-                }
-                for (int i = 0; i < this.m_node.size(); i++) {
-                    if (isAlreadyHere == false) {
-                        addNode(lineValues[1], i);
-                    }
-                }
+                compteur += 1;
+
+            });*/
 
 
-            });
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    void addNode(String city, int i) {
-        Node c = new Node(city, i);
+    void addNode(String city) {
+        Node c = new Node(city);
         this.m_node.add(c);
     }
 
-    void addVertex(String city1, int i1, String city2, int i2, String distance) {
-        Node c = new Node(city1, i1);
-        Node c2 = new Node(city2, i2);
+    void addVertex(String city1, String city2, String distance) {
+        Node c = new Node(city1);
+        Node c2 = new Node(city2);
         int dis = Integer.parseInt(distance);
         Vertex v = new Vertex(c, c2, dis);
         this.m_vertex.add(v);
+        //System.out.println(v);
+
     }
 
     void displayTxt() {
 
-        for (int j = 0; j < this.m_node.size(); j++) {
-            System.out.println(this.m_node.get(j).getName());
+        for (Node node : this.m_node) {
+            System.out.println(node.getName());
         }
-        for (int i = 0; i < this.m_vertex.size(); i++)
-            System.out.println(this.m_vertex.get(i).getStart().getName() + "-->" + this.m_vertex.get(i).getWeight() + "-->" + this.m_vertex.get(i).getEnd().getName());
+        for (Vertex mVertex : this.m_vertex)
+            System.out.println(mVertex.getStart().getName() + "-->" + mVertex.getWeight() + "-->" + mVertex.getEnd().getName());
     }
 
     //We convert our list of weight to use in Prims

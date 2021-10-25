@@ -3,9 +3,9 @@ public class Node {
     private boolean isIncluded = false;
     private int number;
 
-    public Node(String name, int n){
+    public Node(String name){
         this.cityName = name;
-        this.number = n;
+        //this.number = n;
     }
 
     String getName(){return this.cityName; }

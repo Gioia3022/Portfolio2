@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.*;
 
+
+
 public class Main {
 
     public static void main(String[] args)  {
@@ -16,7 +18,7 @@ public class Main {
 
 
         //We prepare our parameters for the Prims algorithm
-        int[][] matrixweightgraph = g.convertListToArrayWeight(new int[45][45]); //<- doesn't work
+        //int[][] matrixweightgraph = g.convertListToArrayWeight(new int[45][45]); //<- doesn't work
         //matrixvertexgraph = g.convertListToArrayVertex(matrixvertexgraph);
 
         //our matrix of weight is empty
