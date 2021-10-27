@@ -133,10 +133,12 @@ class Graph {
         System.out.println("we in " +this.m_vertex.size());
         //We put every vertex's weight in our int array
         for(int i = 0; i < this.m_vertex.size(); i++){ //we don't get in the for bc m_vertex is empty
-            System.out.println("we get in the for");
-            matrixweightgraph[this.m_vertex.get(i).getStart().getNumber()][this.m_vertex.get(i).getEnd().getNumber()] = this.m_vertex.get(i).getWeight();
-            matrixweightgraph[this.m_vertex.get(i).getEnd().getNumber()][this.m_vertex.get(i).getStart().getNumber()] = this.m_vertex.get(i).getWeight();
-            System.out.println(this.m_vertex.get(i).getWeight());
+           // for (int j=0; j<this.m_vertex.size();j++){
+                matrixweightgraph[this.m_vertex.get(i).getStart().getNumber()][this.m_vertex.get(i).getEnd().getNumber()] = this.m_vertex.get(i).getWeight();
+                matrixweightgraph[this.m_vertex.get(i).getEnd().getNumber()][this.m_vertex.get(i).getStart().getNumber()] = this.m_vertex.get(i).getWeight();
+                //System.out.println("i "+i+": "+this.m_vertex.get(i).getStart().getName()+"->"+this.m_vertex.get(i).getWeight()+"->"+this.m_vertex.get(i).getEnd().getName());
+                System.out.println(this.m_vertex.get(i).getEnd().getName()+"-"+this.m_vertex.get(i).getStart().getName());
+            //}
         }
         return matrixweightgraph;
     }
@@ -146,10 +148,11 @@ class Graph {
 
         //We put in a 2D board whether the vertex exists or not
         for(int i = 0; i < this.m_vertex.size(); i++){
-
-            matrixvertexgraph[this.m_vertex.get(i).getStart().getNumber()][this.m_vertex.get(i).getEnd().getNumber()] = 1;
-            matrixvertexgraph[this.m_vertex.get(i).getEnd().getNumber()][this.m_vertex.get(i).getStart().getNumber()] = 1;
-
+            for(int j=0; j< this.m_vertex.size(); j++) {
+                matrixvertexgraph[this.m_vertex.get(i).getStart().getNumber()][this.m_vertex.get(i).getEnd().getNumber()] = 1;
+                //matrixvertexgraph[this.m_vertex.get(j).getEnd().getNumber()][this.m_vertex.get(j).getStart().getNumber()] = 1;
+                System.out.println("m: "+matrixvertexgraph[i][j]);
+            }
         }
         return matrixvertexgraph;
     }

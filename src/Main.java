@@ -23,7 +23,8 @@ public class Main {
 
         //our matrix of weight is empty
         for(int i =0; i < matrixweightgraph.length; i++){
-            for(int j = 0; j < matrixweightgraph.length; j++){
+            for(int j = 0; j < matrixweightgraph.length; j++)
+            {
                 System.out.println(matrixweightgraph[i][j]);
             }
         }
