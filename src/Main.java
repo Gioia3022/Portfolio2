@@ -18,16 +18,16 @@ public class Main {
 
 
         //We prepare our parameters for the Prims algorithm
-        //int[][] matrixweightgraph = g.convertListToArrayWeight(new int[45][45]); //<- doesn't work
-        //matrixvertexgraph = g.convertListToArrayVertex(matrixvertexgraph);
+        int[][] matrixweightgraph = g.convertListToArrayWeight(new int[45][45]); //<- doesn't work
+        matrixvertexgraph = g.convertListToArrayVertex(matrixvertexgraph);
 
         //our matrix of weight is empty
-        /*for(int i =0; i < matrixweightgraph.length; i++){
+        for(int i =0; i < matrixweightgraph.length; i++){
             for(int j = 0; j < matrixweightgraph.length; j++){
                 System.out.println(matrixweightgraph[i][j]);
             }
-        }*/
+        }
 
-        //g.MSTPrims(matrixvertexgraph, matrixweightgraph);
+        g.MSTPrims(matrixvertexgraph, matrixweightgraph);
     }
 }

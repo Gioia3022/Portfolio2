@@ -47,7 +47,6 @@ class Graph {
 
                 addVertex(lineValues[0], lineValues[1], lineValues[2]);
 
-
                 /*for(int i = 0; i < this.m_node.size(); i++) {
                     for (int j = 0; j < this.m_node.size(); j++) {
                         addVertex(lineValues[0], i, lineValues[1], j, lineValues[2]);
@@ -114,15 +113,17 @@ class Graph {
         int dis = Integer.parseInt(distance);
         Vertex v = new Vertex(c, c2, dis);
         this.m_vertex.add(v);
-        //System.out.println(v); bite
+        //System.out.println(v);
 
     }
 
     void displayTxt() {
 
-        for (Node node : this.m_node) {
+        System.out.println(this.m_node.size());
+        System.out.println(this.m_vertex.size());
+        /*for (Node node : this.m_node) {
             System.out.println(node.getName());
-        }
+        }*/
         for (Vertex mVertex : this.m_vertex)
             System.out.println(mVertex.getStart().getName() + "-->" + mVertex.getWeight() + "-->" + mVertex.getEnd().getName());
     }
